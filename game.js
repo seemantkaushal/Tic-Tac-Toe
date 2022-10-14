@@ -33,33 +33,48 @@ function chechWin()
     wins.forEach(e =>{
         if((boxtexts[e[0]].innerHTML === boxtexts[e[1]].innerHTML) && (boxtexts[e[2]].innerHTML === boxtexts[e[1]].innerHTML)  && (boxtexts[e[0]].innerHTML !==""))
         {
-            document.getElementsByClassName("inf")[0].innerHTML = boxtexts[e[0]].innerHTML+"Won";
+            document.getElementsByClassName("inf")[0].innerHTML = boxtexts[e[0]].innerHTML+" Won";
             gameover=true;
             Audiogameover.play();
             music.pause();
             music.current=0;
+            
         }
 
     })
 }
+
 boxes=document.getElementsByClassName("box");
 {
     Array.from(boxes).forEach(element =>{
         let boxtext = element.querySelector('.boxtext');
         element.addEventListener('click', ()=>{
-            if(boxtext.innerText === ''){
-                boxtext.innerText = flag;
-                flag = NextTurn();
-               
-                ting.play();
-                if(!gameover)
-                {
-                    document.getElementsByClassName("inf")[0].innerText  = "~> Turn for " + flag;
-                    
+            
+            if(gameover===false)
+            {
+                if(boxtext.innerText === ''){
+                    boxtext.innerText = flag;
+                    flag = NextTurn();
+                   
+                    ting.play();
+                   
+                    chechWin();
+                    if(gameover===false)
+                    {
+                        document.getElementsByClassName("inf")[0].innerText  = "~> Turn for " + flag;
+                        
+                    }
+                    else 
+                    {
+                        document.getElementById("game").style.display="none";
+                        document.getElementsByClassName("inf")[0].style.fontSize='100px';
+                        
+                    }
                 }
-                chechWin();
-            }
+            } 
+            
         })
     })
-}   
+}  
+
     
